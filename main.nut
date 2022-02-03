@@ -4,8 +4,7 @@
 
 #LU Server
 
-function onPlayerCommand( pPlayer, szCmd, szParams )
-{
+function onPlayerCommand( pPlayer, szCmd, szParams ) {
 	if ( szCmd == "spawncar" ) {
 		if ( szParams ) {
 			local pTemp = split( szParams, " " );
@@ -38,7 +37,7 @@ function onPlayerCommand( pPlayer, szCmd, szParams )
 		if ( !szParams ) MessagePlayer( "You must specify some lil shit to go to", pPlayer );
 		else
 		{
-			local pTemp = split( szParams, " " ), p = GetPlayer( pTemp[ 0 ] );
+			local pTemp = split( szParams, " " ), p = FindPlayer( pTemp[ 0 ] );
 			if ( p )
 			{
 				if ( p.Spawned )
@@ -56,20 +55,6 @@ function onPlayerCommand( pPlayer, szCmd, szParams )
 	}
 
 	return 1;
-}
-
-function GetPlayer( target ) {
-	target = target.tostring();
-	
-	if ( IsNum( target ) )
-	{
-		target = target.tointeger();
-		
-		if ( FindPlayer( target ) ) return FindPlayer( target );
-		else return null;
-	}
-	else if ( FindPlayer( target ) ) return FindPlayer( target );
-	else return null;
 }
 
 function onPlayerReconnect() {
