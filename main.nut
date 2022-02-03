@@ -10,7 +10,6 @@ Data <- array(GetMaxPlayers(), 0);
 class CThePlayerData { 
 	# Main Player
 	Wanted = 0;
-	
 	Kills = 0;
 	KilledByPlayers = 0;
 	Deaths = 0;
