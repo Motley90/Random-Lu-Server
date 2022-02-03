@@ -4,7 +4,12 @@
 
 #LU Server
 
+/* 
+	Timed methods would be kewl. Should that be client base or server >.<
+	I think this random code project should handle data data server side and should function client side
 
+	Don't expect this shit to work out of the box
+*/
 # Main storage
 Data <- array(GetMaxPlayers(), 0);
 class CThePlayerData { 
@@ -23,6 +28,7 @@ class CThePlayerData {
 	CurrentVehicle = -1;
 	
 	# Weapon Ownership
+	Weapon = [0,0,0,0,0,0,0,0,0,0,0,0];
 	Bat = 0;
 	Pistol = 0;
 	Uzi = 0; 
@@ -98,7 +104,7 @@ function onPlayerReconnect() {
 }
 
 function onPlayerConnect ( Player ) {
-    Smallmessage(Player, "Connecting");
+    Smallmessage(Player, "Connecting", 2000, 1);
 }
 
 function onPlayerJoin ( Player ) {
@@ -117,7 +123,7 @@ function onVehicleRespawn(vehicle) {
 	# Need to hand shit?
 }
 
-
+# Gathering Ideas
 function PoliceMission(Player) {
 	# Wanted Check
 	if (Player.WantedLevel > 0 ) MessagePlayer("No criminals wanker", Player);
@@ -126,3 +132,36 @@ function PoliceMission(Player) {
 	SmallMessage(Player, "Look for wanted criminals", 1, 2000);
 	
 }
+local weaponPrices = [
+[1000],
+[2000],
+[3000],
+[4000],
+[5000],
+[6000],
+[7000],
+[8000],
+[9000],
+[10000],
+[11000],
+[12000],
+];
+function BuyWeapon(Player, weapon) { 
+	if (Player.Cash => weaponPrices[weapon]) {
+		Data[Player.ID].Weapon[weapon] = 9999;
+		Player.SetWeapon(weapon, 9999);
+		if (weapon == 1 ) Data[Player.ID].Bat = 1;		
+		if (weapon == 2 ) Data[Player.ID].Pistol = 1;
+		if (weapon == 3 ) Data[Player.ID].Uzi = 1;		
+		if (weapon == 4 ) Data[Player.ID].Shotgun = 1;	
+		if (weapon == 5 ) Data[Player.ID].Ak47 = 1;			
+		if (weapon == 6 ) Data[Player.ID].M16 = 1;			
+		if (weapon == 7 ) Data[Player.ID].Snipper = 1;			
+		if (weapon == 8 ) Data[Player.ID].RocketLauncher = 1;			
+		if (weapon == 9 ) Data[Player.ID].Flamethrower = 1;			
+		if (weapon == 10 ) Data[Player.ID].MolotovCocktail = 1;			
+		if (weapon == 11 ) Data[Player.ID].Grenade = 1;	
+			
+	}
+}
+	
