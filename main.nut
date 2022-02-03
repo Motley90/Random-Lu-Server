@@ -4,6 +4,40 @@
 
 #LU Server
 
+
+# Main storage
+Data <- array(GetMaxPlayers(), 0);
+class CThePlayerData { 
+	# Main Player
+	Wanted = 0;
+	
+	Kills = 0;
+	KilledByPlayers = 0;
+	Deaths = 0;
+	Money = 0;
+	Bank = 0;
+	health = 0;
+	KdRatio = 0.0;
+	
+	# Vehicle
+	TimesSpawned = 0;
+	CurrentVehicle = -1;
+	
+	# Weapon Ownership
+	Bat = 0;
+	Pistol = 0;
+	Uzi = 0; 
+	Shotgun = 0;
+	Ak47 = 0;
+	M16 = 0;
+	Snipper = 0;
+	RocketLauncher = 0;
+	Flamethrower = 0;
+	MolotovCocktail = 0;
+	Grenade = 0;
+};
+
+	
 function onPlayerCommand( pPlayer, szCmd, szParams ) {
 	if ( szCmd == "spawncar" ) {
 		if ( szParams ) {
