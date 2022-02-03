@@ -34,6 +34,9 @@ class CThePlayerData {
 	Flamethrower = 0;
 	MolotovCocktail = 0;
 	Grenade = 0;
+	
+	#Missions
+	Police = false;
 };
 
 	
@@ -115,3 +118,11 @@ function onVehicleRespawn(vehicle) {
 }
 
 
+function PoliceMission(Player) {
+	# Wanted Check
+	if (Player.WantedLevel > 0 ) MessagePlayer("No criminals wanker", Player);
+	
+	# Start
+	SmallMessage(Player, "Look for wanted criminals", 1, 2000);
+	
+}
