@@ -15,7 +15,7 @@ class CThePlayerData {
 	Deaths = 0;
 	Money = 0;
 	Bank = 0;
-	health = 0;
+	Health = 0;
 	KdRatio = 0.0;
 	
 	# Vehicle
