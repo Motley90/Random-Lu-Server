@@ -35,8 +35,12 @@ local 		weaponOwnership = [ [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [
 	
 		#Missions
 local		Police = false;
+local		BustedPlayers = 0;
+local		PoliceLevel = 0;
+local		allowedWeapons = [ [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12] ]; // 1 = level 1. 2 = 20 etc
+local		canKill = false; 
 
-function SetPlayerData(Player) {
+function SetPlayerData() {
 	# Do a call server func later, left as an example
 	Player.SetWeapon...
 	Player.WantedLevel = Wanted;
@@ -47,6 +51,8 @@ function SetPlayerData(Player) {
 function onScriptLoad() {
 	print("Loanding scripts");
 	Message("Welcome to the server");
+	
+	# SetPlayerData()
 }
 		   
 
@@ -123,11 +129,7 @@ function onPlayerSpawn ( Player , iClass ) {
 }
 
 function onPlayerPart ( Player , iReason ) {
-	# Destroy shit nigga
-	// SOME CODE
-	
-	#Store last known data from the player and class to the account
-	// SOME CODE
+	#Create Some call server function to send over all client variables to get wrote
 }
 
 function onVehicleRespawn(vehicle) { 
@@ -141,6 +143,7 @@ function PoliceMission(Player) {
 	
 	# Start
 	SmallMessage("Look for wanted criminals", 1, 2000);
+	Police = true;
 }
 
 # Squirel isn't strict so this will work
