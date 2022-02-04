@@ -78,10 +78,8 @@ local		dataProcessed = false;
 local		TimerUsages = {};
 local		Timers = [];
 
-function SetTimer(func, ...) { 
-    foreach(idx, func in args) {
-        if (func) Timers.push(NewTimer(func, varg[i]); 
-    }
+function SetTimer(func, type) { 
+	Timers.push(NewTimer("TimedEvent", type); 
 }		
 			      
 function DeleteTimer(func) {
