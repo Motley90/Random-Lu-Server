@@ -1,14 +1,14 @@
 # Random from scratch server, Motley
+print("Script is starting");
 
 #2/3/22
 
 #LU Server
-
 /* 
 	Timed methods would be kewl. Should that be client base or server >.<
 	I think this random code project should handle data data server side and should function client side
 
-	Don't expect this shit to work out of the box
+	Dont expect this shit to work out of the box
 	Events, functions etc are not being referenced from the wiki I am coding whatever pops in my memory
 	
 	BUMP, CONVERTING TO A CLIENT SCRIPT. i WILL RETURN AT SOME POINT TO CALL SERVER FUNCTIONS
@@ -79,17 +79,17 @@ local		TimerUsages = {};
 local		Timers = [];
 
 function SetTimer(type, time) { 
-	Timers.push(NewTimer("TimedEvent", type, time); 
+	Timers.push(NewTimer("TimedEvent", type, time)); 
 }		
 			      
 function DeleteTimer(func) {
-	Timers.rawget(func.delete());
+	Timers.rawget(func)
 }
 			      
 # Called on Login
 function SetPlayerData() {
 	# Do a call server func later, left as an example
-	Player.SetWeapon...
+	/*Player.SetWeapon...
 	Player.WantedLevel = Wanted;
 	Player.Cash = Money;
 	Player.Health = Health;
@@ -97,12 +97,11 @@ function SetPlayerData() {
 	
 	canSpawn = true;
 	isLogged = true;
-	dataProcessed = true;
+	dataProcessed = true;*/
 
 }
 function onScriptLoad() {
-	print("Loanding scripts");
-	Message("Welcome to the server");
+	Message("Welcome to the server", Colour(201, 201, 201));
 }
 		   
 
@@ -132,7 +131,7 @@ function onPlayerCommand( pPlayer, szCmd, szParams ) {
 		return true;
 	}
 
-	if ( szCmd == "armour" )		
+	if ( szCmd == "armour" )	{	
 		pPlayer.Armour = 100;
 		Message("Nab " + pPlayer.Name + " has armoured up"); 
 		return true;
@@ -201,8 +200,8 @@ function PoliceMission(Player) {
 # Squirel isn't strict so this will work
 local weaponPrice = "000";		   
 function BuyWeapon(Player, weapon) { 
-	local somePrice = weapon.tostring(), price = somePrice + weaponPrice;
-	if (Money => price.tointeger()) {
+	local somePrice = weapon.tostring() + weaponPrice, price = somePrice + weaponPrice;
+	if (Money >= price.tointeger()) {
 		# If they own it they own it, 9999 ammo
 		weaponOwnership[weapon] = true;		
 	}
