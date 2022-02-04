@@ -12,6 +12,10 @@
 	Events, functions etc are not being referenced from the wiki I am coding whatever pops in my memory
 
 	Do weird shit. I think I should set all vehicles to running
+	
+	
+	BUMP, CONVERTING TO A CLIENT SCRIPT. i WILL RETURN AT SOME POINT TO CALL SERVER FUNCTIONS
+	REMOVE CLASS, REMOVE MANUAL WEAPON INFO, USE A ARRAY SLOT FOR WEAPONS
 */
 # Main storage
 Data <- array(GetMaxPlayers(), 0);
