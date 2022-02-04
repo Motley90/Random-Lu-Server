@@ -25,21 +25,54 @@ local		Money = 0;
 local		Bank = 0;
 local		Health = 0;
 local		KdRatio = 0.0;
-	
-		# Vehicle
-local		TimesSpawned = 0;
+local		x = 0;
+local		y = 0;
+local		z = 0;
+local		skin = -1;
+local		hospitalSpawn = false;
+local		canSpawnCar = false
+local		CarsSpawned = -1;
 local		CurrentVehicle = -1;
-	
+local		SpawnCarTime = 0;
+
+local		lastVehicleModel = -1;
+local		lastVehiclePositionX = 0;
+local		lastVehiclePositionY = 0;
+local		lastVehiclePositionZ = 0;
+local		lastVehicleColor1 = 0;
+local		lastVehicleColor2 = 0;
+local		lastVehicleWasOn = false;		
+
 		# Weapon Ownership
 local 		weaponOwnership = [ [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12] ];
-	
+local		weaponAmmo = [ [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0], [0] ];
+
 		#Missions
 local		Police = false;
 local		BustedPlayers = 0;
 local		PoliceLevel = 0;
 local		allowedWeapons = [ [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12] ]; // 1 = level 1. 2 = 20 etc
 local		canKill = false; 
+local		SendToPoliceStation = false;
+local		CanSpawnByWantedPlayer = false;
+local		policeVehicleModel = -1;
+local		SendToOriginalStation = false;
+local		CanWarpToAnotherStation = false;
 
+		#General Mission
+local		getBackInCarTime = 0;
+local		getBackInCarBool = false;
+local		TimerNeeded = false;
+local		TempSkin = -1;
+local		CanRecreateNewModel = false;
+
+		#Spawn To world
+local		canSpawn = false;
+local		isLogged = false;
+local		dataProcessed = false;
+
+
+# Called on Login
 function SetPlayerData() {
 	# Do a call server func later, left as an example
 	Player.SetWeapon...
@@ -47,12 +80,14 @@ function SetPlayerData() {
 	Player.Cash = Money;
 	Player.Health = Health;
 	Player.Armour = Armour;
+	
+	canSpawn = true;
+	isLogged = true;
+	dataProcessed = true;
 }
 function onScriptLoad() {
 	print("Loanding scripts");
 	Message("Welcome to the server");
-	
-	# SetPlayerData()
 }
 		   
 
@@ -142,8 +177,9 @@ function PoliceMission(Player) {
 	if (Player.WantedLevel > 0 ) MessagePlayer("No criminals wanker", Player);
 	
 	# Start
-	SmallMessage("Look for wanted criminals", 1, 2000);
+	SmallMessage("Look for wanted criminals", 1, 2000); // From memory lu had a get nearest player func
 	Police = true;
+	getBackInCarTime = 30;
 }
 
 # Squirel isn't strict so this will work
