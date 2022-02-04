@@ -36,6 +36,8 @@ local		canSpawnCar = false
 local		CarsSpawned = -1;
 local		CurrentVehicle = -1;
 local		SpawnCarTime = 0;
+local		updateAccount = false;
+local		updateAccontTime = 0;
 
 local		lastVehicleModel = -1;
 local		lastVehiclePositionX = 0;
@@ -73,7 +75,19 @@ local		canSpawn = false;
 local		isLogged = false;
 local		dataProcessed = false;
 
+local		TimerUsages = {};
+local		Timers = [];
 
+function SetTimer(func, ...) { 
+    foreach(idx, func in args) {
+        if (func) Timers.push(NewTimer(func, varg[i]); 
+    }
+}		
+			      
+function DeleteTimer(func) {
+	Timers.rawget(func.delete());
+}
+			      
 # Called on Login
 function SetPlayerData() {
 	# Do a call server func later, left as an example
@@ -86,6 +100,7 @@ function SetPlayerData() {
 	canSpawn = true;
 	isLogged = true;
 	dataProcessed = true;
+
 }
 function onScriptLoad() {
 	print("Loanding scripts");
@@ -194,4 +209,22 @@ function BuyWeapon(Player, weapon) {
 		# If they own it they own it, 9999 ammo
 		weaponOwnership[weapon] = true;		
 	}
+}
+
+function TimedEvent(Usage) {
+    updateAccontTime++;
+	switch( Usage ) {
+     		case Police:
+		# Check if in car
+		# Check for wanted players
+        	break;
+      		case Account:	
+		# Check if a update is needed
+		if ( updateAccontTime == 300) { 
+			updateAccount = true;
+			updateAccountTime = 0;
+		}
+		break;
+  	}
+  	return true;
 }
