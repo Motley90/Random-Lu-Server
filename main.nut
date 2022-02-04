@@ -9,6 +9,9 @@
 	I think this random code project should handle data data server side and should function client side
 
 	Don't expect this shit to work out of the box
+	Events, functions etc are not being referenced from the wiki I am coding whatever pops in my memory
+
+	Do weird shit. I think I should set all vehicles to running
 */
 # Main storage
 Data <- array(GetMaxPlayers(), 0);
@@ -44,8 +47,32 @@ class CThePlayerData {
 	#Missions
 	Police = false;
 };
-
+function SetPlayerData(Player) {
+	Data[Player.ID] = CThePlayerData();
+	# Do some ini read shit for the class
+	// SOME CODE
 	
+	# Set data
+	Player.SetWeapon... // each index, autoset ammo to 9999
+	Player.WantedLevel = Data[Player.ID].Wanted;
+	Player.Score = Data[Player.ID].Kills;
+	Player.Cash = Data[Player.ID].Money;
+	Player.Health = Data[Player.ID].Health;
+	Player.Armour = Data[Player.ID].Armour;
+	Data[Player.ID].TimesSpawned++;
+}
+function onScriptLoad() {
+	print("Loanding scripts");
+	
+	# Load Ini
+	LoadModule('Lu-Ini");
+	
+	print("LU INI has loaded"); 
+	
+	# If any players
+	Message("Server Restarted");
+}
+		   
 function onPlayerCommand( pPlayer, szCmd, szParams ) {
 	if ( szCmd == "spawncar" ) {
 		if ( szParams ) {
@@ -117,10 +144,14 @@ function onPlayerSpawn ( Player , iClass ) {
 
 function onPlayerPart ( Player , iReason ) {
 	# Destroy shit nigga
+	// SOME CODE
+	
+	#Store last known data from the player and class to the account
+	// SOME CODE
 }
 
 function onVehicleRespawn(vehicle) { 
-	# Need to hand shit?
+	# Need to handle shit?
 }
 
 # Gathering Ideas
@@ -130,8 +161,8 @@ function PoliceMission(Player) {
 	
 	# Start
 	SmallMessage(Player, "Look for wanted criminals", 1, 2000);
-	
 }
+		   
 local weaponPrices = [
 [1000],
 [2000],
@@ -147,20 +178,20 @@ local weaponPrices = [
 [12000],
 ];
 function BuyWeapon(Player, weapon) { 
-	if (Player.Cash => weaponPrices[weapon]) {
+	if (Data[Player.ID].Money => weaponPrices[weapon]) {
 		Data[Player.ID].Weapon[weapon] = 9999;
 		Player.SetWeapon(weapon, 9999);
 		if (weapon == 1 ) Data[Player.ID].Bat = 1;		
-		if (weapon == 2 ) Data[Player.ID].Pistol = 1;
-		if (weapon == 3 ) Data[Player.ID].Uzi = 1;		
-		if (weapon == 4 ) Data[Player.ID].Shotgun = 1;	
-		if (weapon == 5 ) Data[Player.ID].Ak47 = 1;			
-		if (weapon == 6 ) Data[Player.ID].M16 = 1;			
-		if (weapon == 7 ) Data[Player.ID].Snipper = 1;			
-		if (weapon == 8 ) Data[Player.ID].RocketLauncher = 1;			
-		if (weapon == 9 ) Data[Player.ID].Flamethrower = 1;			
-		if (weapon == 10 ) Data[Player.ID].MolotovCocktail = 1;			
-		if (weapon == 11 ) Data[Player.ID].Grenade = 1;	
+		else if (weapon == 2 ) Data[Player.ID].Pistol = 1;
+		else if (weapon == 3 ) Data[Player.ID].Uzi = 1;		
+		else if (weapon == 4 ) Data[Player.ID].Shotgun = 1;	
+		else if (weapon == 5 ) Data[Player.ID].Ak47 = 1;			
+		else if (weapon == 6 ) Data[Player.ID].M16 = 1;			
+		else if (weapon == 7 ) Data[Player.ID].Snipper = 1;			
+		else if (weapon == 8 ) Data[Player.ID].RocketLauncher = 1;			
+		else if (weapon == 9 ) Data[Player.ID].Flamethrower = 1;			
+		else if (weapon == 10 ) Data[Player.ID].MolotovCocktail = 1;			
+		else if (weapon == 11 ) Data[Player.ID].Grenade = 1;	
 			
 	}
 }
