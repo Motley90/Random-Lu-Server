@@ -78,8 +78,8 @@ local		dataProcessed = false;
 local		TimerUsages = {};
 local		Timers = [];
 
-function SetTimer(type) { 
-	Timers.push(NewTimer("TimedEvent", type); 
+function SetTimer(type, time) { 
+	Timers.push(NewTimer("TimedEvent", type, time); 
 }		
 			      
 function DeleteTimer(func) {
@@ -176,7 +176,7 @@ function onPlayerJoin ( Player ) {
 
 function onPlayerSpawn ( Player , iClass ) {
 	Player.VirtualWorld = 69;
-	SetTimer("SetTimer", "Account");
+	SetTimer("SetTimer", "Account", 1000);
 }
 
 function onPlayerPart ( Player , iReason ) {
@@ -209,15 +209,16 @@ function BuyWeapon(Player, weapon) {
 }
 
 function TimedEvent(Usage) {
-    updateAccontTime++;
 	switch( Usage ) {
      		case "Police":
 		# getBackInCarTime++; // Add a check
 		# Check for wanted players
+		# Set to start and stop this timer at random
         	break;
       		case "Account":	
+		updateAccountTime++;
 		# Check if a update is needed
-		if ( updateAccontTime == 300) { 
+		if ( updateAccountTime == 300) { 
 			updateAccount = true;
 			updateAccountTime = 0;
 			# SomeUpdateFunc
