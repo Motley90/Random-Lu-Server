@@ -59,7 +59,6 @@ function SetPlayerData(Player) {
 	Player.Cash = Data[Player.ID].Money;
 	Player.Health = Data[Player.ID].Health;
 	Player.Armour = Data[Player.ID].Armour;
-	Data[Player.ID].TimesSpawned++;
 }
 function onScriptLoad() {
 	print("Loanding scripts");
@@ -85,6 +84,8 @@ function onPlayerCommand( pPlayer, szCmd, szParams ) {
 				vehicle.OneTime = truel
 				vehicle.RespawnTime = 300; #Five minute delete
 				MessagePlayer( "The vehicle ID ["+ID+"] was created for you", pPlayer );
+				Data[pPlayer.ID].TimesSpawned++;
+
 			}
 		}
 		return true;
