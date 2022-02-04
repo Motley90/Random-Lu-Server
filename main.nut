@@ -144,7 +144,7 @@ function PoliceMission(Player) {
 }
 
 # Squirel isn't strict so this will work
-local weaponPrice = "000		   
+local weaponPrice = "000";		   
 function BuyWeapon(Player, weapon) { 
 	local somePrice = weapon.tostring(), price = somePrice + weaponPrice;
 	if (Money => price.tointeger()) {
