@@ -15,6 +15,8 @@
 	REMOVE CLASS, REMOVE MANUAL WEAPON INFO, USE A ARRAY SLOT FOR WEAPONS
 	
 	LETS GO WITH STRAIGHT LOCALS SINCE LOCALS ARE THE FASTEST METHOD
+	
+	* Wrap all of the basic functions to get called from a fake call server function. I will write the server another day 'SetPlayerData()'
 */
 		# Main Player
 local		Wanted = 0;
@@ -161,6 +163,8 @@ function onPlayerJoin ( Player ) {
 
 function onPlayerSpawn ( Player , iClass ) {
 	Player.VirtualWorld = 69;
+	# Can spawn if logged so should be fine
+	SetPlayerData(); 
 }
 
 function onPlayerPart ( Player , iReason ) {
