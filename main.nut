@@ -37,7 +37,7 @@ local		CarsSpawned = -1;
 local		CurrentVehicle = -1;
 local		SpawnCarTime = 0;
 local		updateAccount = false;
-local		updateAccontTime = 0;
+local		updateAccountTime = 0;
 
 local		lastVehicleModel = -1;
 local		lastVehiclePositionX = 0;
@@ -178,8 +178,6 @@ function onPlayerJoin ( Player ) {
 
 function onPlayerSpawn ( Player , iClass ) {
 	Player.VirtualWorld = 69;
-	# Can spawn if logged so should be fine
-	SetPlayerData(); 
 }
 
 function onPlayerPart ( Player , iReason ) {
@@ -215,7 +213,7 @@ function TimedEvent(Usage) {
     updateAccontTime++;
 	switch( Usage ) {
      		case Police:
-		# Check if in car
+		# getBackInCarTime++; // Add a check
 		# Check for wanted players
         	break;
       		case Account:	
@@ -223,6 +221,7 @@ function TimedEvent(Usage) {
 		if ( updateAccontTime == 300) { 
 			updateAccount = true;
 			updateAccountTime = 0;
+			# SomeUpdateFunc
 		}
 		break;
   	}
