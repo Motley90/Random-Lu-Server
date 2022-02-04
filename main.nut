@@ -64,7 +64,7 @@ function onScriptLoad() {
 	print("Loanding scripts");
 	
 	# Load Ini
-	LoadModule('Lu-Ini");
+	LoadModule("Lu-Ini");
 	
 	print("LU INI has loaded"); 
 	
