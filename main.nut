@@ -1,9 +1,12 @@
 # Random from scratch server, Motley
-print("Script is starting");
 
 #2/3/22
 
 #LU Server
+
+SmallMessage("Connecting", 3500, 2);
+print("Script is starting");
+
 /* 
 	Timed methods would be kewl. Should that be client base or server >.<
 	I think this random code project should handle data data server side and should function client side
@@ -17,8 +20,11 @@ print("Script is starting");
 	LETS GO WITH STRAIGHT LOCALS SINCE LOCALS ARE THE FASTEST METHOD
 	
 	* Wrap all of the basic functions to get called from a fake call server function. I will write the server another day 'SetPlayerData()'
+	
+	Fix onPlayer blah events not triggering
 */
 		# Main Player
+//local 		pPlayer = FindLocalPlayer ( );
 local		Wanted = 0;
 local		Kills = 0;
 local		KilledByPlayers = 0;
@@ -79,7 +85,7 @@ local		TimerUsages = {};
 local		Timers = [];
 
 function SetTimer(type, time) { 
-	Timers.push(NewTimer("TimedEvent", type, time)); 
+	Timers.push(NewTimer("TimedEvent", type, time, 0)); 
 }		
 			      
 function DeleteTimer(func) {
@@ -102,83 +108,28 @@ function SetPlayerData() {
 }
 function onScriptLoad() {
 	Message("Welcome to the server", Colour(201, 201, 201));
-}
-		   
-
-function onPlayerCommand( pPlayer, szCmd, szParams ) {
-	# Needs to be a call server function that gets the data to create the car, Client just verifies
-	if ( szCmd == "spawncar" ) {
-		if ( szParams ) {
-			local pTemp = split( szParams, " " );
-			if ( IsNum( pTemp[ 0 ] ) ) ID = pTemp[ 0 ].tointeger();
-			
-			if ( ( ID >= 90 ) && ( ID <= 150 ) ) {
-				MessagePlayer( "Spawning a vehicle for you...", pPlayer );
-				local vehicle = CreateVehicle( ID, pPlayer.Pos, pPlayer.Angle );
-				vehicle.OneTime = truel
-				vehicle.RespawnTime = 300; #Five minute delete
-				MessagePlayer( "The vehicle ID ["+ID+"] was created for you", pPlayer );
-				Data[pPlayer.ID].TimesSpawned++;
-
-			}
-		}
-		return true;
-	}
-
-	if ( szCmd == "health" ) {
-		pPlayer.Health = 100;
-		Message("Nab " + pPlayer.Name + " has healed"); 
-		return true;
-	}
-
-	if ( szCmd == "armour" )	{	
-		pPlayer.Armour = 100;
-		Message("Nab " + pPlayer.Name + " has armoured up"); 
-		return true;
-	}
-
-	if ( szCmd == "goto" ) {
-		if ( !szParams ) MessagePlayer( "You must specify some lil shit to go to", pPlayer );
-		else
-		{
-			local pTemp = split( szParams, " " ), p = FindPlayer( pTemp[ 0 ] );
-			if ( p )
-			{
-				if ( p.Spawned )
-				{
-					Message( "Taking this fucker " + pPlayer.Name + " to this fucker " + p.Name, Colour( 0, 223, 0 ) );
-					pPlayer.Pos = p.Pos;
-					pPlayer.Pos.y += 5;
-					pPlayer.Pos.z += 2;
-				}
-				else MessagePlayer( "This person isn't spawned nub!", pPlayer );
-			}
-			else MessagePlayer( "Can't find anyone with that id/nick", pPlayer );
-		}
-		return true;
-	}
-
-	return 1;
+	
+	onPlayerJoin(pPlayer);
 }
 
 function onPlayerReconnect() {
 	# Custom full detection
 }
 
-function onPlayerConnect ( Player ) {
-    Smallmessage(Player, "Connecting", 2000, 1);
+function onPlayerJoin( player ) {
+	print(pPlayer.Name + " has joined");
+
+	return 0;
+
 }
 
-function onPlayerJoin ( Player ) {
-	Message(Player.Name + " has joined");
+function onClientSpawn ( spawn ) {
+	print("Test")
+	pPlayer.VirtualWorld = 69;
+	SetTimer("Account", 1000);
 }
 
-function onPlayerSpawn ( Player , iClass ) {
-	Player.VirtualWorld = 69;
-	SetTimer("SetTimer", "Account", 1000);
-}
-
-function onPlayerPart ( Player , iReason ) {
+function onPlayerPart ( pPlayer , iReason ) {
 	#Create Some call server function to send over all client variables to get wrote
 }
 
@@ -225,4 +176,191 @@ function TimedEvent(Usage) {
 		break;
   	}
   	return true;
+}
+
+local		canKill = false; 
+local		SendToPoliceStation = false;
+local		CanSpawnByWantedPlayer = false;
+local		policeVehicleModel = -1;
+local		SendToOriginalStation = false;
+local		CanWarpToAnotherStation = false;
+
+
+function onClientEnteredVehicle ( Vehicle, Seat) {
+  switch (vehicle.Model) {
+  
+    case 107:
+    case 116:
+    case 117: 
+    
+      if (Seat == 0) {
+        PoliceMission(Player);
+      }
+	  break;
+	  
+	}
+}
+
+function PoliceAbility() { 
+  switch (PoliceLevel) {
+	case 0; 
+	case 1;	
+	case 2; 
+	case 3; 
+	case 4; 
+	case 5; 
+	case 6; 
+	case 7; 
+	case 8; 
+	case 9; 
+	case 10; 		
+		allowedWeapons = [ [true], [false], [false], [false], [false], [false], [false], [false], [false], [false], [false], [false] ];
+	break;
+	
+	case 11;	
+	case 12; 
+	case 13; 
+	case 14; 
+	case 15; 
+	case 16; 
+	case 17; 
+	case 18; 
+	case 19; 
+	case 20; 		
+		allowedWeapons = [ [true], [true], [false], [false], [false], [false], [false], [false], [false], [false], [false], [false] ];
+	break;
+	
+	case 21;	
+	case 22; 
+	case 23; 
+	case 24; 
+	case 25; 
+	case 26; 
+	case 27; 
+	case 28; 
+	case 29; 
+	case 30; 		
+		allowedWeapons = [ [true], [true], [true], [false], [false], [false], [false], [false], [false], [false], [false], [false] ];
+	break;
+	
+	case 31;	
+	case 32; 
+	case 33; 
+	case 34; 
+	case 35; 
+	case 36; 
+	case 37; 
+	case 38; 
+	case 39; 
+	case 40; 		
+		allowedWeapons = [ [true], [true], [true], [true], [false], [false], [false], [false], [false], [false], [false], [false] ];
+	break;
+	
+	case 41;	
+	case 42; 
+	case 43; 
+	case 44; 
+	case 45; 
+	case 46; 
+	case 47; 
+	case 48; 
+	case 49; 
+	case 50; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [false], [false], [false], [false], [false], [false], [false] ];
+	break;
+	
+	case 51;	
+	case 52; 
+	case 53; 
+	case 54; 
+	case 55; 
+	case 56; 
+	case 57; 
+	case 58; 
+	case 59; 
+	case 60; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [true], [false], [false], [false], [false], [false], [false] ];
+	break;
+	
+	case 61;	
+	case 62; 
+	case 63; 
+	case 64; 
+	case 65; 
+	case 66; 
+	case 67; 
+	case 68; 
+	case 69; 
+	case 70; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [false], [false], [false], [false], [false] ];
+	break;
+	
+	case 71;	
+	case 72; 
+	case 73; 
+	case 74; 
+	case 75; 
+	case 76; 
+	case 77; 
+	case 78; 
+	case 79; 
+	case 80; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [true], [false], [false], [false], [false] ];
+	break;
+	
+	case 81;	
+	case 82; 
+	case 83; 
+	case 84; 
+	case 85; 
+	case 86; 
+	case 87; 
+	case 88; 
+	case 89; 
+	case 90; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [true], [true], [false], [false], [false] ];
+	break;
+	
+	case 91;	
+	case 92; 
+	case 93; 
+	case 94; 
+	case 95; 
+	case 96; 
+	case 97; 
+	case 98; 
+	case 99; 
+	case 100; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [false], [false] ];
+	break;
+	
+	case 101;	
+	case 102; 
+	case 103; 
+	case 104; 
+	case 105; 
+	case 106; 
+	case 107; 
+	case 108; 
+	case 109; 
+	case 110; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [false] ];
+	break;
+	
+	case 111;	
+	case 122; 
+	case 133; 
+	case 144; 
+	case 155; 
+	case 166; 
+	case 177; 
+	case 188; 
+	case 199; 
+	case 120; 		
+		allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [true] ];
+	break;
+	
+	default:	{
+					allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [true] ];	
+			}
 }
