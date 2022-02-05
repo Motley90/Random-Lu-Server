@@ -195,7 +195,7 @@ function onClientEnteredVehicle ( Vehicle, Seat) {
     case 117: 
     
       if (Seat == 0) {
-        PoliceMission(Player);
+		PoliceScanner();
       }
 	  break;
 	  
@@ -363,7 +363,25 @@ function PoliceAbility() {
 	
 	default:	{
 					allowedWeapons = [ [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [true], [true] ];	
-			}
+				}
   }
 
+}
+
+function BustPlayer() {
+	
+
+}
+
+function PoliceScanner() { 
+	for (local i=0;i<128;i++) {
+		local criminal = FindPlayer(i);
+      
+		if (criminal) {
+			if (criminal.WantedLevel > 0) {
+				MessagePlayer(criminal.Name+" ("+criminal.ID+")", player, White);
+			}
+		}
+		SmallMessage("~p~No Criminals", 3500, 2); // Test
+    }
 }
