@@ -19,9 +19,8 @@ print("Script is starting");
 	
 	LETS GO WITH STRAIGHT LOCALS SINCE LOCALS ARE THE FASTEST METHOD
 	
-	* Wrap all of the basic functions to get called from a fake call server function. I will write the server another day 'SetPlayerData()'
 	
-	Looks like I need a custom player.WantedLevel method. Its broken client side and I dont want a server func just for that
+	# Created a object and function that calls the stored wanted level. Client makes a request, server sends all data in one segment 
 	
 */
 		# Main Player
@@ -368,7 +367,9 @@ function BustPlayer() {
 }
 
 function PoliceScanner() { 
-		SmallMessage("~p~No Criminals", 3500, 2); // Test
+	# Default
+	SmallMessage("~p~No Criminals", 3500, 2); 
+	
 	for (local i=0;i<128;i++) {
 		local criminal = FindPlayer(i);
       
@@ -378,7 +379,6 @@ function PoliceScanner() {
 				// dump in object if wanted and loop the wanted slots in a timed manor
 			}
 		}
-
     }
 
 }
