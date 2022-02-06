@@ -21,7 +21,8 @@ print("Script is starting");
 	
 	* Wrap all of the basic functions to get called from a fake call server function. I will write the server another day 'SetPlayerData()'
 	
-	Fix onPlayer blah events not triggering
+	Looks like I need a custom player.WantedLevel method. Its broken client side and I dont want a server func just for that
+	
 */
 		# Main Player
 local 		pPlayer = FindLocalPlayer ( );
@@ -109,7 +110,7 @@ function SetPlayerData() {
 function onScriptLoad() {
 	Message("Welcome to the server", Colour(201, 201, 201));
 	
-	onPlayerJoin(pPlayer);
+	//onPlayerJoin(pPlayer);
 }
 
 function onPlayerReconnect() {
@@ -117,15 +118,15 @@ function onPlayerReconnect() {
 }
 
 function onPlayerJoin( player ) {
-	Message(pPlayer.Name + " has joined", Colour(101, 15, 201));
-
+	Message(player.Name + " has joined", Colour(101, 15, 201));
+    
 	return 0;
 
 }
 
 function onClientSpawn ( spawn ) {
+	pPlayer.Armour = 10
 	print("Test")
-	pPlayer.VirtualWorld = 69;
 	SetTimer("Account", 1000);
 }
 
@@ -167,6 +168,7 @@ function TimedEvent(Usage) {
         	break;
       		case "Account":	
 		updateAccountTime++;
+		print(updateAccountTime)
 		# Check if a update is needed
 		if ( updateAccountTime == 300) { 
 			updateAccount = true;
@@ -178,12 +180,6 @@ function TimedEvent(Usage) {
   	return true;
 }
 
-local		canKill = false; 
-local		SendToPoliceStation = false;
-local		CanSpawnByWantedPlayer = false;
-local		policeVehicleModel = -1;
-local		SendToOriginalStation = false;
-local		CanWarpToAnotherStation = false;
 
 
 function onClientEnteredVehicle ( Vehicle, Seat) {
@@ -194,9 +190,7 @@ function onClientEnteredVehicle ( Vehicle, Seat) {
     case 116:
     case 117: 
     
-      if (Seat == 0) {
 		PoliceScanner();
-      }
 	  break;
 	  
 	}
@@ -374,14 +368,23 @@ function BustPlayer() {
 }
 
 function PoliceScanner() { 
+		SmallMessage("~p~No Criminals", 3500, 2); // Test
 	for (local i=0;i<128;i++) {
 		local criminal = FindPlayer(i);
       
 		if (criminal) {
 			if (criminal.WantedLevel > 0) {
-				MessagePlayer(criminal.Name+" ("+criminal.ID+")", player, White);
+				SmallMessage("~p~"+criminal.Name + ", ~y~Stars~w~: ~r~" + criminal.WantedLevel, 3500, 2); // Test
+				// dump in object if wanted and loop the wanted slots in a timed manor
 			}
 		}
-		SmallMessage("~p~No Criminals", 3500, 2); // Test
+
     }
+
 }
+
+
+function LockOnCriminal() {
+	
+}
+
