@@ -16,7 +16,7 @@ function SetWantedLevel(client, val) {
 	if (val => 0 ) WantedPlayers.push(client, val);
 	else WantedPlayers.remove(client);
 	
-	FindPlayer(client).WantedLevel = val
+	FindPlayer(client).WantedLevel = val;
 	
 	# Testing
 	print("Client (" + client + ") wanted level was set to ("+ val +")");
